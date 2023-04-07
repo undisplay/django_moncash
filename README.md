@@ -210,11 +210,41 @@ From moncash
 - TooManyRequestsError
 - UnexpectedError
 - UpgradeRequiredError
+
 From django
 - IntegrityError 
 - Transaction.DoesNotExist
 
+## Current Transaction model
 
+```python
+
+    class Transaction(models.Model):
+
+        class Status(models.TextChoices):
+            PENDING = 'PENDING', _("Pending")
+            COMPLETE = 'COMPLETE', _("Complete")
+            CONSUME = 'CONSUME', _("Consume")
+
+
+        user = models.ForeignKey(
+            User,
+            on_delete=models.SET_NULL,
+            null=True,
+            blank=True
+        )
+
+        order_id = models.CharField(_("Order id"), max_length=50,default=uuid.uuid4,unique=True, editable=False)
+        amount   = models.DecimalField(_("Amount"), max_digits=11, decimal_places=2,blank=False,null=False)
+        status = models.CharField(_('Status'),max_length=25,choices=Status.choices,default=Status.PENDING,blank=False)
+
+        return_url = models.TextField(_("Return URL"),blank=False,null=False)
+
+        meta_data = models.JSONField(_("Meta data"),null=True,blank=True)
+        
+        created_at = models.DateTimeField(auto_now_add=True)
+        updated_at = models.DateTimeField(auto_now=True)
+```
 
 ## Development
 Run all tests.
