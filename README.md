@@ -256,7 +256,7 @@ Run all tests.
 
 Scan and donate using the Moncash App
 
-![Moncash_QR](https://pypi.org/project/django_moncash/assets/gr.jpg)  
+![Moncash_QR](https://i.ibb.co/mDmPCHj/qr.jpg)  
 
 Or send to 
 (+509) 48-02-0151
