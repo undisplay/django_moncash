@@ -1,18 +1,22 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect,resolve_url
 
 from django.http import Http404
 
 from .utils import verify_payment
 from .models import Transaction
 
+from ._utils import add_params
+
 def complete_transaction(request):
 
-    transaction:Transaction = verify_payment(request).transaction
+    payment = verify_payment(request)
+
+    transaction:Transaction = payment['transaction']
 
     if transaction:
         transaction.status = Transaction.Status.COMPLETE
         transaction.save()
 
-        return redirect(transaction.return_url)
+        return redirect(add_params(resolve_url(transaction.return_url),{"transactionId":payment['transactionId']}))
     else:
-        return Http404()
+        raise Http404

@@ -1,4 +1,3 @@
-from django.urls import resolve
 from django.conf import settings 
 
 
@@ -7,9 +6,11 @@ from .models import Transaction
 
 import moncash
 
+from moncash.exceptions import  NotFoundError
+
 environment = moncash.environment.Sandbox
 
-if str.lower(settings.MONCASH['ENVIRONMENT']) is 'production':
+if str.lower(settings.MONCASH['ENVIRONMENT']) == 'production':
     environment = moncash.environment.Production
 
 gateway = moncash.Moncash(
@@ -18,19 +19,15 @@ gateway = moncash.Moncash(
     environment= environment
 )
 
-
-def init_payment(request,amonut: float,return_url: str,cancel_url: str,order_id: str,meta_data: dict):
+def init_payment(request,amount: float,return_url: str = None,cancel_url: str=None,order_id: str=None,meta_data: dict=None):
 
     if not return_url:
-        return_url = resolve(request.path_info).url_name
-
-    if not cancel_url:
-        cancel_url = resolve(request.path_info).url_name
+        return_url = request.get_full_path()
 
     if order_id:
-        transaction = Transaction.objects.create(amonut=amonut,return_url=return_url,cancel_url=cancel_url,meta_data=meta_data,order_id=order_id)
+        transaction = Transaction.objects.create(amount=amount,return_url=return_url,meta_data=meta_data,order_id=order_id)
     else:
-        transaction = Transaction.objects.create(amonut=amonut,return_url=return_url,cancel_url=cancel_url,meta_data=meta_data)
+        transaction = Transaction.objects.create(amount=amount,return_url=return_url,meta_data=meta_data)
 
     payment_url = gateway.payment.create(amount=transaction.amount, reference=str(transaction.order_id))
 
@@ -40,31 +37,56 @@ def init_payment(request,amonut: float,return_url: str,cancel_url: str,order_id:
     }
 
 
-def verify_payment(request,moncash_transaction_id: str):
+def verify_payment(request,moncash_transaction_id: str=None):
 
     if not moncash_transaction_id:
         moncash_transaction_id = request.GET.get("transactionId",None)
 
-        try:
-            gateway.payment.get_by_id(transactionId=moncash_transaction_id)
+    transaction = {}
 
-            transaction = Transaction.objects.get(order_id=transaction["reference"])
-        except:
-            transaction = None
+    try:
+        transaction = gateway.payment.get_by_id(transactionId=moncash_transaction_id)
+    except NotFoundError:
+        transaction["reference"] = None
+
+
+    try:
+        transaction = Transaction.objects.get(order_id=transaction["reference"])
+    except Transaction.DoesNotExist:
+        transaction = None
 
     return {
-        "transaction": transaction
+        "transaction": transaction,
+        "transactionId":moncash_transaction_id
     }
 
 
-def consume_payment(request,order_id: str):
+def consume_payment(request,order_id: str=None):
     if order_id:
         payment = verify_payment(moncash_transaction_id=order_id)
     else:
         payment = verify_payment(request)
 
-    if payment.transaction:
-        payment.transaction.status = Transaction.Status.CONSUME
-        payment.transaction.save()
+    if payment['transaction']:
+
+        if payment['transaction'].status == Transaction.Status.CONSUME:
+            return {
+                "success":False,
+                "error":"USED",
+                "payment":payment
+            }
+        
+        payment['transaction'].status = Transaction.Status.CONSUME
+        payment['transaction'].save()
+
+        return {
+            "success":True,
+            "payment":payment
+        }
+            
       
-    return payment
+    return {
+        "success":False,
+        "error":"NOT_FOUND",
+        "payment":payment
+    }

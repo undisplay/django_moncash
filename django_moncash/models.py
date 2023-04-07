@@ -28,9 +28,8 @@ class Transaction(models.Model):
     status = models.CharField(_('Status'),max_length=25,choices=Status.choices,default=Status.PENDING,blank=False)
 
     return_url = models.TextField(_("Return URL"),blank=False,null=False)
-    cancel_url = models.TextField(_("Cancel URL"),blank=False,null=False)
 
-    meta_data = models.JSONField(_("Meta data"))
+    meta_data = models.JSONField(_("Meta data"),null=True,blank=True)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
