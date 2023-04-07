@@ -6,13 +6,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django_moncash"
-version = "1.0.0"
+version = "1.0.1"
 description = "Installable django moncash"
 readme = "README.md"
 authors = [{ name = "Freedy Meritus", email = "meritusfreedy@gmail.com" }]
 license = { file = "LICENSE" }
 classifiers = [
-    "License :: OSI Approved :: GNU License",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
 ]
