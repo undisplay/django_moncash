@@ -1,0 +1,35 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django_moncash"
+version = "1.0.0"
+description = "Installable django moncash"
+readme = "README.md"
+authors = [{ name = "Freedy Meritus", email = "meritusfreedy@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: GNU License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["moncash", "django", "payment", "SDK"]
+dependencies = [
+    "Django >= 2.2"
+    "moncash >= 1.0.3"
+]
+requires-python = ">=3.6"
+
+[project.optional-dependencies]
+dev = ["pip-tools", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/undisplay/django_moncash"
+
+[project.scripts]
+django_moncash_migrate = "django_moncash.migrate"
+django_moncash_makemigrations = "django_moncash.makemigrations"
+django_moncash_test = "django_moncash.load_tests"
