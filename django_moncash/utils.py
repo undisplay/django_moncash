@@ -19,7 +19,7 @@ gateway = moncash.Moncash(
     environment= environment
 )
 
-def init_payment(request,amount: float,return_url: str = None,cancel_url: str=None,order_id: str=None,meta_data: dict=None):
+def init_payment(request,amount: float,return_url: str = None,order_id: str=None,meta_data: dict=None):
 
     if not return_url:
         return_url = request.get_full_path()
@@ -61,9 +61,12 @@ def verify_payment(request,moncash_transaction_id: str=None):
     }
 
 
-def consume_payment(request,order_id: str=None):
-    if order_id:
-        payment = verify_payment(moncash_transaction_id=order_id)
+def consume_payment(request,moncash_transaction_id: str=None):
+
+    payment = None
+
+    if moncash_transaction_id:
+        payment = verify_payment(moncash_transaction_id=moncash_transaction_id)
     else:
         payment = verify_payment(request)
 
@@ -87,6 +90,5 @@ def consume_payment(request,order_id: str=None):
       
     return {
         "success":False,
-        "error":"NOT_FOUND",
-        "payment":payment
+        "error":"NOT_FOUND"
     }
