@@ -266,7 +266,7 @@ Or send to
 _Version 3, 29 June 2007_
 
 ## Useful links
-- [Pypi package link](https://pypi.org/project/django_moncash/)
+- [Pypi package link](https://pypi.org/project/django-moncash/)
 - [Digicel Moncash API Dashboard](https://sandbox.moncashbutton.digicelgroup.com)
 - [RestAPI_MonCash_doc.pdf](https://sandbox.moncashbutton.digicelgroup.com/Moncash-business/resources/doc/RestAPI_MonCash_doc.pdf)
 - [Low level SDK for python](https://github.com/dokla/moncash_python)
