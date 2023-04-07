@@ -25,10 +25,12 @@ Install using pip with:
 ```
 Add django_moncash app to INSTALLED_APPS in your django settings.py:
 
-INSTALLED_APPS = (
-...,
-'django_moncash',
-)
+```python
+    INSTALLED_APPS = (
+        ...,
+        'django_moncash',
+    )
+```
 
 ## Configuring the client
 Digicel Moncash API [Dashboard](https://sandbox.moncashbutton.digicelgroup.com/Moncash-business/Login).
@@ -44,6 +46,28 @@ Add credentials in your django settings.py:
     }
 
 ```
+
+Include django_moncash.urls in your django project urls.py:
+
+```python
+
+    from django.contrib import admin
+    from django.urls import path,include
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('payment/',include('django_moncash.urls')),
+
+        path('',include('test_app.urls'))
+    ]
+
+```
+
+On the Digicel Moncash API [Dashboard](https://sandbox.moncashbutton.digicelgroup.com/Moncash-business/Login) 
+setup the business return url to be "https://yoursite.com/payment/moncash"
+
+Note that "payment" is the base route you chose when your urls.py (path('payment/',include('django_moncash.urls')))
+
 ## Create Payment
 The only supported currency is 'HTG'.
 _With the configue above._
