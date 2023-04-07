@@ -252,6 +252,15 @@ Run all tests.
     python load_tests.py
 ```
 
+## Donate to support us
+
+Scan and donate using the Moncash App
+
+![Moncash_QR](https://pypi.org/project/django_moncash/assets/gr.jpg)  
+
+Or send to 
+(+509) 48-02-0151
+
 ## License
 [GNU GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/gpl-3.0.txt)
 _Version 3, 29 June 2007_
