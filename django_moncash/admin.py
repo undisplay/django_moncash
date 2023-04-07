@@ -24,12 +24,9 @@ class TransactionAdmin(admin.ModelAdmin):
         'user',
         'created_at',
         'updated_at',
-        'id',
-        'order_id',
         'amount',
         'status',
         'return_url',
-        'meta_data',
     )
     date_hierarchy = 'created_at'
 
