@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django_moncash"
-version = "2.1.1"
+version = "2.2.1"
 description = "Installable django moncash"
 readme = "README.md"
 authors = [{ name = "Freedy Meritus", email = "meritusfreedy@gmail.com" }]
@@ -30,6 +30,6 @@ dev = ["pip-tools", "pytest"]
 Homepage = "https://github.com/undisplay/django_moncash"
 
 [project.scripts]
-django_moncash_migrate = "migrate"
-django_moncash_makemigrations = "makemigrations"
-django_moncash_test = "load_tests"
+django_moncash_migrate = "migrate:main"
+django_moncash_makemigrations = "makemigrations:main"
+django_moncash_test = "load_tests:main"

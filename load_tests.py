@@ -18,9 +18,17 @@ def get_suite(labels=default_labels):
     # In case this is called from setuptools, return a test suite
     return TestSuite()
 
-if __name__ == "__main__":
+import sys
+
+
+def main():
+
     labels = default_labels
     if len(sys.argv[1:]) > 0:
         labels = sys.argv[1:]
 
     get_suite(labels)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

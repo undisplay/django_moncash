@@ -4,5 +4,17 @@
 from django.core.management import call_command
 from boot_django import boot_django
 
-boot_django()
-call_command("makemigrations", "django_moncash")
+
+
+import sys
+
+
+def main():
+
+    boot_django()
+    call_command("makemigrations", "django_moncash")
+
+
+
+if __name__ == "__main__":
+    sys.exit(main())
