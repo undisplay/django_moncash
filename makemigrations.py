@@ -12,7 +12,7 @@ import sys
 def main():
 
     boot_django()
-    call_command("makemigrations", "django_moncash")
+    call_command("makemigrations")
 
 
 

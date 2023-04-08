@@ -11,7 +11,7 @@ def main():
 
 
     boot_django()
-    call_command("migrate", "django_moncash")
+    call_command("migrate")
 
 
 if __name__ == "__main__":

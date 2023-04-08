@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django_moncash"
-version = "2.2.1"
+version = "2.3.1"
 description = "Installable django moncash"
 readme = "README.md"
 authors = [{ name = "Freedy Meritus", email = "meritusfreedy@gmail.com" }]
@@ -33,3 +33,4 @@ Homepage = "https://github.com/undisplay/django_moncash"
 django_moncash_migrate = "migrate:main"
 django_moncash_makemigrations = "makemigrations:main"
 django_moncash_test = "load_tests:main"
+django_moncash_shell = "djangoshell:main"
