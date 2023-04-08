@@ -21,13 +21,15 @@ gateway = moncash.Moncash(
 
 def init_payment(request,amount: float,return_url: str = None,order_id: str=None,meta_data: dict=None):
 
+    amount = float(amount)
+
     if not return_url:
         return_url = request.get_full_path()
 
     if order_id:
-        transaction = Transaction.objects.create(amount=amount,return_url=return_url,meta_data=meta_data,order_id=order_id)
+        transaction = Transaction.objects.create(user=request.user,amount=amount,return_url=return_url,meta_data=meta_data,order_id=order_id)
     else:
-        transaction = Transaction.objects.create(amount=amount,return_url=return_url,meta_data=meta_data)
+        transaction = Transaction.objects.create(user=request.user,amount=amount,return_url=return_url,meta_data=meta_data)
 
     payment_url = gateway.payment.create(amount=transaction.amount, reference=str(transaction.order_id))
 
