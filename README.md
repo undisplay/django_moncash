@@ -31,6 +31,12 @@ Add django_moncash app to INSTALLED_APPS in your django settings.py:
         'django_moncash',
     )
 ```
+Run the migrations:
+
+```sh
+    python manage.py makemigrations
+    python manage.py migrate
+```
 
 ## Configuring the client
 Digicel Moncash API [Dashboard](https://sandbox.moncashbutton.digicelgroup.com/Moncash-business/Login).
@@ -279,12 +285,12 @@ Run all tests.
 ## Donate to support us
 
 Scan and donate using the Moncash App
-
 ![Moncash_QR](https://i.ibb.co/mDmPCHj/qr.jpg)  
 
-Or send to 
+Or Tranfer to:
+```
 (+509) 48-02-0151
-
+```
 ## License
 [GNU GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/gpl-3.0.txt)
 _Version 3, 29 June 2007_
