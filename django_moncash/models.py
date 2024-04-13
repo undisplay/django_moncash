@@ -25,6 +25,7 @@ class Transaction(models.Model):
     )
 
     order_id = models.CharField(_("Order id"), max_length=50,default=uuid.uuid4,unique=True, editable=False)
+    transaction_id = models.CharField(_("Transaction id"), max_length=14,default=None,blank=False,null=False,editable=False)
     amount   = models.DecimalField(_("Amount"), max_digits=11, decimal_places=2,blank=False,null=False)
     status = models.CharField(_('Status'),max_length=25,choices=Status.choices,default=Status.PENDING,blank=False)
 

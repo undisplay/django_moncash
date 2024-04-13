@@ -13,6 +13,7 @@ class TransactionAdmin(admin.ModelAdmin):
         'id',
         'user',
         'order_id',
+        'transaction_id',
         'amount',
         'status',
         'return_url',

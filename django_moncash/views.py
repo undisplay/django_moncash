@@ -15,6 +15,7 @@ def complete_transaction(request):
 
     if transaction:
         transaction.status = Transaction.Status.COMPLETE
+        transaction.transaction_id = payment['transactionId']
         transaction.save()
 
         return redirect(add_params(resolve_url(transaction.return_url),{"transactionId":payment['transactionId']}))
